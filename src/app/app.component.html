@@ -1,7 +1,39 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<!-- MENU CONTENT -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>Cadastrar</button>
+  <button mat-menu-item>Logar</button>
+</mat-menu>
+<!-- MENU CONTENT -->
 
-  <img width="40%"
+<header>
+
+  <button mat-button
+          [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="input-group mb-3">
+    <input type="text"
+           class="form-control"
+           placeholder="Encontre os profissionais mais perto!"
+           aria-label="Encontre os profissionais mais perto!"
+           aria-describedby="button-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary"
+              mat-icon-button
+              type="button"
+              id="button-addon2">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </div>
+  <img alt="Angular Logo"
+       src="assets/images/logo.jpg">
+
+</header>
+
+<div style="text-align:center">
+  <img width="80%"
        alt="Angular Logo"
        src="assets/images/logo.jpg">
 </div>

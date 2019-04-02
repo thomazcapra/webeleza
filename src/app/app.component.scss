@@ -1,0 +1,29 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  height: 7rem;
+  align-items: center;
+  padding: 1rem;
+
+  img {
+    max-height: 100%;
+  }
+}
+
+input {
+  &.form-control {
+    height: 40px;
+  }
+}
+
+::ng-deep {
+  .btn-outline-secondary.mat-icon-button {
+    .mat-button-ripple {
+      border: 1px solid #ced4da;
+    }
+  }
+}
+
+.input-group.mb-3 {
+  margin: 0 1rem !important;
+}
