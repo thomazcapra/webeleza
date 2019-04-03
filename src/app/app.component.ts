@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'WEBELEZA';
   searchedValue: string;
+
+  public search(): void {
+    console.log(this.searchedValue);
+  }
 }

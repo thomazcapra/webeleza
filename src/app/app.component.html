@@ -6,34 +6,29 @@
 <!-- MENU CONTENT -->
 
 <header>
+  <img alt="Angular Logo"
+       src="assets/images/logo.png">
 
-  <button mat-button
-          [matMenuTriggerFor]="menu">
-    <mat-icon>menu</mat-icon>
-  </button>
-
-  <div class="input-group mb-3">
+  <form class="input-group mb-3">
     <input type="text"
+           [ngModelOptions]="{standalone: true}"
            class="form-control"
+           [(ngModel)]="searchedValue"
            placeholder="Encontre os profissionais mais perto!"
            aria-label="Encontre os profissionais mais perto!"
            aria-describedby="button-addon2">
     <div class="input-group-append">
       <button class="btn btn-outline-secondary"
               mat-icon-button
-              type="button"
+              (click)="search()"
+              type="submit"
               id="button-addon2">
         <mat-icon>search</mat-icon>
       </button>
     </div>
-  </div>
-  <img alt="Angular Logo"
-       src="assets/images/logo.jpg">
-
+  </form>
+  <button mat-icon-button
+          [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
 </header>
-
-<div style="text-align:center">
-  <img width="80%"
-       alt="Angular Logo"
-       src="assets/images/logo.jpg">
-</div>
