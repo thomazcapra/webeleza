@@ -1,20 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatToolbarModule,
-  MatIconModule,
-  MatMenuModule,
   MatButtonModule,
   MatFormFieldModule,
-  MatInputModule
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatToolbarModule
 } from '@angular/material';
-
-import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -34,6 +31,7 @@ const MATERIAL_MODULES = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+
     ...MATERIAL_MODULES
   ],
   providers: [],

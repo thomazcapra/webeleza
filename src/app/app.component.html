@@ -1,14 +1,16 @@
 <!-- MENU CONTENT -->
 <mat-menu #menu="matMenu">
   <button mat-menu-item>Cadastrar</button>
-  <button mat-menu-item>Logar</button>
+  <button mat-menu-item
+          [routerLink]="['login']">Logar</button>
 </mat-menu>
 <!-- MENU CONTENT -->
 
 <header>
-  <img alt="Angular Logo"
-       src="assets/images/logo.png">
-
+  <button mat-icon-button
+          [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
   <form class="input-group mb-3">
     <input type="text"
            [ngModelOptions]="{standalone: true}"
@@ -27,8 +29,9 @@
       </button>
     </div>
   </form>
-  <button mat-icon-button
-          [matMenuTriggerFor]="menu">
-    <mat-icon>menu</mat-icon>
-  </button>
+
+  <img alt="Angular Logo"
+       src="assets/images/logo.png">
 </header>
+
+<router-outlet></router-outlet>

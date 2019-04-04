@@ -1,0 +1,20 @@
+<ng-template #loginDialog>
+  <div class="login-dialog">
+    <div class="login-dialog__line">
+      <button mat-raised-button>
+        <div class="google-login">
+          <img alt="Angular Logo"
+               src="assets/images/google-icon.svg">
+          <strong class="google-login-text">Login com google!</strong>
+        </div>
+      </button>
+    </div>
+    <div class="login-dialog__line">
+      <button mat-raised-button
+              (click)="closeLoginDialog()"
+              color="primary">
+        <strong>Agora não</strong>
+      </button>
+    </div>
+  </div>
+</ng-template>
