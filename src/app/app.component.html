@@ -34,4 +34,14 @@
        src="assets/images/logo.png">
 </header>
 
+<div class="card-area">
+  <app-card *ngFor="let item of data"
+            [clientInfo]="item">
+  </app-card>
+</div>
+
+<footer>
+
+</footer>
+
 <router-outlet></router-outlet>

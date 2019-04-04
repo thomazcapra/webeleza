@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {
   MatButtonModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatCardModule
 } from '@angular/material';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
+import { CardComponent } from './shared/core/components/card/card.component';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -20,11 +25,12 @@ const MATERIAL_MODULES = [
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
-  FormsModule
+  FormsModule,
+  MatCardModule
 ];
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CardComponent],
   imports: [
     BrowserModule,
     FormsModule,
