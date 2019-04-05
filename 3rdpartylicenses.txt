@@ -348,8 +348,6 @@ MIT
 @angular/animations
 MIT
 
-@angular/material/button
-
 firebase/app
 
 @firebase/polyfill
@@ -432,6 +430,8 @@ Apache-2.0
 
 @firebase/util
 Apache-2.0
+
+@angular/material/button
 
 @firebase/firestore
 Apache-2.0
