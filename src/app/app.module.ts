@@ -8,7 +8,9 @@ import {
   MatInputModule,
   MatMenuModule,
   MatToolbarModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressBarModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +20,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CardComponent } from './shared/core/components/card/card.component';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { firebaseConfig } from 'src/environments/environment.prod';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { RegisterComponent } from './register/register.component';
+
 const MATERIAL_MODULES = [
   MatToolbarModule,
   MatIconModule,
@@ -26,21 +34,33 @@ const MATERIAL_MODULES = [
   MatFormFieldModule,
   MatInputModule,
   FormsModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressBarModule,
+  MatSnackBarModule
 ];
 
+
 @NgModule({
-  declarations: [AppComponent, CardComponent],
+  declarations: [
+    AppComponent,
+    CardComponent,
+    RegisterComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
     ...MATERIAL_MODULES
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AngularFireAuth
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { UserService } from '../user/user.service';
 
-export interface IAddress {
-  street: string;
-  number: string;
-  city: string;
-  state: string;
-  addicionalInfo: string;
+export interface IGeoPoint {
+  latitude: number;
+  longitude: number;
 }
 
 export interface ICardInfo {
   name: string;
-  area: string;
   description: string;
   age: number;
-  address: IAddress;
+  photo: string;
+  mainPhoto: string;
+  phone: string;
+  address: IGeoPoint;
 }
 
 @Injectable({
@@ -22,73 +23,35 @@ export interface ICardInfo {
 export class ApiService {
   data: ICardInfo[];
 
-  constructor() {
-    this.data = [
-      {
-        name: 'Nome da cliente',
-        age: 19,
-        description: 'Uma descrição das atividades',
-        area: 'Area de Atuação',
-        address: {
-          state: 'São Paulo',
-          street: 'Rua da Cliente',
-          city: 'Cidade da Cliente',
-          number: '228',
-          addicionalInfo: 'Complemento'
-        }
-      },
-      {
-        name: 'Nome da cliente',
-        age: 19,
-        description: 'Uma descrição das atividades',
-        area: 'Area de Atuação',
-        address: {
-          state: 'São Paulo',
-          street: 'Rua da Cliente',
-          city: 'Cidade da Cliente',
-          number: '228',
-          addicionalInfo: 'Complemento'
-        }
-      },
-      {
-        name: 'Nome da cliente',
-        age: 19,
-        description: 'Uma descrição das atividades',
-        area: 'Area de Atuação',
-        address: {
-          state: 'São Paulo',
-          street: 'Rua da Cliente',
-          city: 'Cidade da Cliente',
-          number: '228',
-          addicionalInfo: 'Complemento'
-        }
-      },
-      {
-        name: 'Nome da cliente',
-        age: 19,
-        description: 'Uma descrição das atividades',
-        area: 'Area de Atuação',
-        address: {
-          state: 'São Paulo',
-          street: 'Rua da Cliente',
-          city: 'Cidade da Cliente',
-          number: '228',
-          addicionalInfo: 'Complemento'
-        }
-      },
-      {
-        name: 'Nome da cliente',
-        age: 19,
-        description: 'Uma descrição das atividades',
-        area: 'Area de Atuação',
-        address: {
-          state: 'São Paulo',
-          street: 'Rua da Cliente',
-          city: 'Cidade da Cliente',
-          number: '228',
-          addicionalInfo: 'Complemento'
-        }
-      }
-    ];
+  constructor(public db: AngularFirestore, private userService: UserService) {
+    this._getDataFromServer();
+  }
+
+  private _getDataFromServer(): void {
+    this.db.collection('items')
+      .valueChanges()
+      .subscribe((data: ICardInfo[]) => {
+        this.data = data;
+      });
+  }
+
+  get items(): ICardInfo[] {
+    return this.data;
+  }
+
+  updateData(payload: ICardInfo): void {
+    if (this.userService.authenticated) {
+      const docRef = this.db.collection('items').doc(this.userService.currentUser.email);
+
+      docRef.update(payload)
+        .then(() => {
+          console.log('Updated');
+        }).catch((error) => {
+          docRef.set(payload);
+          console.log('Could not update, so, it was added');
+        });
+    } else {
+      console.log('You need to be conected');
+    }
   }
 }

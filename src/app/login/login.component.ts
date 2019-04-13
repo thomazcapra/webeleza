@@ -8,6 +8,7 @@ import {
 
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router';
+import { UserService } from '../shared/core/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +20,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   public loginDialog: TemplateRef<any>;
   private _dialogRef: MatDialogRef<any, any>;
 
-  constructor(private matDialog: MatDialog, private router: Router) {}
+  constructor(private matDialog: MatDialog, private router: Router, private userService: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -36,4 +37,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
   closeLoginDialog(): void {
     this._dialogRef.close();
   }
+
+  loginOrLogout(): void {
+    if (this.userService.authenticated) {
+      this.userService.logout();
+    } else {
+      this.userService.login();
+    }
+
+    this.closeLoginDialog();
+  }
+
+  buttonInfo(): { buttonText: string, buttonImageUrl: string } {
+    return this.userService.authenticated
+      ? { buttonText: `${this.userService.currentUser.displayName}, deseja sair?`, buttonImageUrl: this.userService.currentUser.photoURL }
+      : { buttonText: 'Login com google', buttonImageUrl: 'assets/images/google-icon.svg' };
+  }
+
 }

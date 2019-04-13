@@ -1,11 +1,14 @@
+<mat-progress-bar *ngIf="loading()"
+                  mode="indeterminate">
+</mat-progress-bar>
 <!-- MENU CONTENT -->
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>Cadastrar</button>
   <button mat-menu-item
-          [routerLink]="['login']">Logar</button>
+          *ngIf="isAnyUser()">Alterar Dados</button>
+  <button mat-menu-item
+          [routerLink]="['login']">{{ isAnyUser() ?  'Sair' : 'Cadastrar/Entrar' }}</button>
 </mat-menu>
 <!-- MENU CONTENT -->
-
 <header>
   <button mat-icon-button
           [matMenuTriggerFor]="menu">
@@ -33,6 +36,10 @@
   <img alt="Angular Logo"
        src="assets/images/logo.png">
 </header>
+
+<h5 *ngIf="isAnyUser()">
+  Bem vindo(a), {{ userName() }}
+</h5>
 
 <div class="card-area">
   <app-card *ngFor="let item of data"

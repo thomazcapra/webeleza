@@ -1,5 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
+$error-color: red;
+$info-color: blue;
+$warning-color: yellow;
+$sucess-color: green;
+
+$notification-types: ('error', 'info', 'warning', 'sucess');
+
+$colors-map: (
+  'error': $error-color,
+  'info': $info-color,
+  'warning': $warning-color,
+  'sucess': $sucess-color
+);
+
+$background-map: (
+  'error': lighten($error-color, 30%),
+  'info': lighten($info-color, 30%),
+  'warning': lighten($warning-color, 30%),
+  'sucess': lighten($sucess-color, 30%)
+);
+
 html,
 body {
   height: 100%;
@@ -8,4 +29,29 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  &.loading {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}
+
+@each $type in $notification-types {
+  $color: map-get($colors-map, $type);
+  $background-color: map-get($background-map, $type);
+
+  .snack {
+    &--#{$type} {
+      display: flex !important;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bolder;
+      color: $color;
+      background-color: $background-color;
+    }
+  }
 }

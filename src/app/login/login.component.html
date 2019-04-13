@@ -1,11 +1,12 @@
 <ng-template #loginDialog>
   <div class="login-dialog">
     <div class="login-dialog__line">
-      <button mat-raised-button>
+      <button mat-raised-button
+              (click)="loginOrLogout()">
         <div class="google-login">
           <img alt="Angular Logo"
-               src="assets/images/google-icon.svg">
-          <strong class="google-login-text">Login com google!</strong>
+               [src]="buttonInfo().buttonImageUrl">
+          <strong class="google-login-text"> {{ buttonInfo().buttonText }} </strong>
         </div>
       </button>
     </div>
