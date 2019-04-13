@@ -431,8 +431,6 @@ Apache-2.0
 @firebase/util
 Apache-2.0
 
-@angular/material/button
-
 @firebase/firestore
 Apache-2.0
 
@@ -442,22 +440,28 @@ Apache-2.0
 @firebase/webchannel-wrapper
 Apache-2.0
 
+@angular/material/button
+
 @angular/router
 MIT
 
 @angular/forms
 MIT
 
-@angular/material/card
-
-@angular/material/menu
-
-@angular/material/icon
-
 @angular/fire/firestore
 MIT
 
 firebase/firestore
+
+@angular/material/snack-bar
+
+@angular/material/progress-bar
+
+@angular/material/menu
+
+@angular/material/card
+
+@angular/material/icon
 
 @angular/fire/auth
 MIT
