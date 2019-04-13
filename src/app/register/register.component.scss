@@ -1,0 +1,30 @@
+.register-dialog {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  width: 67vw;
+  max-width: 600px;
+  max-height: 800px;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  form {
+    width: 100%;
+    padding: 1rem;
+    display: block;
+  }
+
+  &__line {
+    display: flex;
+  }
+
+  .button-area {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+  }
+}

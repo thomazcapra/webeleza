@@ -4,6 +4,7 @@
 <!-- MENU CONTENT -->
 <mat-menu #menu="matMenu">
   <button mat-menu-item
+          [routerLink]="['register']"
           *ngIf="isAnyUser()">Alterar Dados</button>
   <button mat-menu-item
           [routerLink]="['login']">{{ isAnyUser() ?  'Sair' : 'Cadastrar/Entrar' }}</button>

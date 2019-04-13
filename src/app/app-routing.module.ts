@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: './login/login.module#LoginModule'
   },
   {
+    path: 'register',
+    loadChildren: './register/register.module#RegisterModule'
+  },
+  {
     path: '**',
     redirectTo: ''
   }
@@ -16,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

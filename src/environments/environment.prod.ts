@@ -4,4 +4,4 @@ export const environment = {
 
 export const firebaseConfig = {
 
-}
+};

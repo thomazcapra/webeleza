@@ -2,6 +2,7 @@
   <div class="login-dialog">
     <div class="login-dialog__line">
       <button mat-raised-button
+              [color]="isAnyUser() ? 'accent' : null"
               (click)="loginOrLogout()">
         <div class="google-login">
           <img alt="Angular Logo"
@@ -13,7 +14,7 @@
     <div class="login-dialog__line">
       <button mat-raised-button
               (click)="closeLoginDialog()"
-              color="primary">
+              [color]="isAnyUser() ? null : 'primary'">
         <strong>Agora não</strong>
       </button>
     </div>

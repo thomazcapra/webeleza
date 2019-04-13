@@ -54,4 +54,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       : { buttonText: 'Login com google', buttonImageUrl: 'assets/images/google-icon.svg' };
   }
 
+  isAnyUser(): boolean {
+    return this.userService.authenticated;
+  }
 }

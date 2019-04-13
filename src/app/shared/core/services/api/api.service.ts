@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../user/user.service';
+import { NotificationService } from '../notification/notification.service';
+
+import { mergeMap, map } from 'rxjs/operators';
 
 export interface IGeoPoint {
   latitude: number;
@@ -10,7 +13,7 @@ export interface IGeoPoint {
 export interface ICardInfo {
   name: string;
   description: string;
-  age: number;
+  birthDate: Date;
   photo: string;
   mainPhoto: string;
   phone: string;
@@ -23,7 +26,9 @@ export interface ICardInfo {
 export class ApiService {
   data: ICardInfo[];
 
-  constructor(public db: AngularFirestore, private userService: UserService) {
+  constructor(public db: AngularFirestore,
+    private notificationService: NotificationService,
+    private userService: UserService) {
     this._getDataFromServer();
   }
 
@@ -40,18 +45,37 @@ export class ApiService {
   }
 
   updateData(payload: ICardInfo): void {
-    if (this.userService.authenticated) {
-      const docRef = this.db.collection('items').doc(this.userService.currentUser.email);
 
-      docRef.update(payload)
+    if (this.userService.authenticated) {
+      this.db.collection('items')
+        .doc(this.userService.currentUser.email)
+        .set({
+          ...payload,
+          birthDate: payload.birthDate && payload.birthDate.getTime()
+        })
         .then(() => {
-          console.log('Updated');
-        }).catch((error) => {
-          docRef.set(payload);
-          console.log('Could not update, so, it was added');
+          this.notificationService.showSucess('Dados Atualizados com Sucesso!');
+        })
+        .catch((error) => {
+          this.notificationService.showError('Erro ao atualizar informações');
+          console.dir(error);
         });
-    } else {
-      console.log('You need to be conected');
     }
+  }
+
+  getUserData(): Promise<ICardInfo> {
+    if (this.userService.authenticated) {
+      try {
+        return this.db.collection('items')
+          .doc(this.userService.currentUser.email)
+          .get()
+          .pipe(
+            map((snap) => <ICardInfo>snap.data())
+          ).toPromise();
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+    return Promise.reject(null);
   }
 }
