@@ -29,32 +29,32 @@ export class RegisterComponent implements AfterViewInit, OnInit {
     private notificationService: NotificationService,
     private userService: UserService, private apiService: ApiService) {
     if (this.userService.authenticated) {
+      let card: ICardInfo;
 
       this.apiService.getUserData()
         .then((c: ICardInfo) => {
-          this.createForm(c);
-          console.dir(c);
+          card = c;
         }).catch((error) => {
           this.notificationService.showError('Erro ao obter dados');
+        }).finally(() => {
+          this.createForm(card);
         });
-
-      const user = this.userService.currentUser;
     }
   }
 
-  private createForm(card: ICardInfo): void {
+  private createForm(card?: ICardInfo): void {
     const user = this.userService.currentUser;
 
     this.form = new FormGroup(
       {
-        name: new FormControl(card.name, null),
+        name: new FormControl(card && card.name, null),
         email: new FormControl({ value: user.email, disabled: true }, null),
         photo: new FormControl({ value: user.photoURL, disabled: true }, null),
         birthDate: new FormControl({ value: new Date(Date.now()), disabled: true }, null),
-        description: new FormControl(card.description),
+        description: new FormControl(card && card.description),
         // mainPhoto: new FormControl(m),
-        phone: new FormControl(card.phone),
-        address: new FormControl(card.address),
+        phone: new FormControl(card && card.phone),
+        address: new FormControl(card && card.address),
       }
     );
   }
