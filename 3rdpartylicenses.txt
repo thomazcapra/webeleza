@@ -679,6 +679,11 @@ firebase/auth
 @angular/fire
 MIT
 
+firebase/storage
+
+@firebase/storage
+Apache-2.0
+
 zone.js
 MIT
 The MIT License
