@@ -1,13 +1,13 @@
 <mat-card class="example-card">
   <mat-card-header>
     <img mat-card-avatar
-         [src]="clientInfo?.photo || 'assets/images/avatar.png'"
+         [src]="clientInfo?.avatarUrl || 'assets/images/avatar.png'"
          class="example-header-image">
-    <mat-card-title> {{ clientInfo.name }} </mat-card-title>
+    <mat-card-title> {{ clientInfo.clientName }} </mat-card-title>
     <mat-card-subtitle> {{ clientInfo.phone }} </mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image
-       [src]="clientInfo?.mainPhoto || 'assets/images/example.jpg'"
+       [src]="clientInfo?.mainPhotoUrl || 'assets/images/example.jpg'"
        alt="Photo of a Shiba Inu">
   <mat-card-content>
     <p>

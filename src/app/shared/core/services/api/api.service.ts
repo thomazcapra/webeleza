@@ -1,23 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { UserService } from '../user/user.service';
-import { NotificationService } from '../notification/notification.service';
+import * as firebase from 'firebase/app';
+import 'firebase/storage';  // <----
 
-import { mergeMap, map } from 'rxjs/operators';
+import { NotificationService } from '../notification/notification.service';
+import { UserService } from '../user/user.service';
+import { ICardInfo } from '@webeleza/models';
+import { CONSTANTS } from '@webeleza/constants';
 
 export interface IGeoPoint {
   latitude: number;
   longitude: number;
-}
-
-export interface ICardInfo {
-  name: string;
-  description: string;
-  birthDate: Date;
-  photo: string;
-  mainPhoto: string;
-  phone: string;
-  address: IGeoPoint;
 }
 
 @Injectable({
@@ -25,6 +18,9 @@ export interface ICardInfo {
 })
 export class ApiService {
   data: ICardInfo[];
+  private uploadTask: firebase.storage.UploadTask;
+  private _uploadProgress = 0;
+  private _loading: boolean;
 
   constructor(public db: AngularFirestore,
     private notificationService: NotificationService,
@@ -33,7 +29,7 @@ export class ApiService {
   }
 
   private _getDataFromServer(): void {
-    this.db.collection('items')
+    this.db.collection(CONSTANTS.COLLECTION)
       .valueChanges()
       .subscribe((data: ICardInfo[]) => {
         this.data = data;
@@ -47,12 +43,9 @@ export class ApiService {
   updateData(payload: ICardInfo): void {
 
     if (this.userService.authenticated) {
-      this.db.collection('items')
+      this.db.collection(CONSTANTS.COLLECTION)
         .doc(this.userService.currentUser.email)
-        .set({
-          ...payload,
-          birthDate: payload.birthDate && payload.birthDate.getTime()
-        })
+        .update(payload)
         .then(() => {
           this.notificationService.showSucess('Dados Atualizados com Sucesso!');
         })
@@ -63,19 +56,38 @@ export class ApiService {
     }
   }
 
-  getUserData(): Promise<ICardInfo> {
-    if (this.userService.authenticated) {
-      try {
-        return this.db.collection('items')
-          .doc(this.userService.currentUser.email)
-          .get()
-          .pipe(
-            map((snap) => <ICardInfo>snap.data())
-          ).toPromise();
-      } catch (error) {
-        return Promise.reject(error);
-      }
-    }
-    return Promise.reject(null);
+  uploadImage(file: File): Promise<string> {
+    const storageRef = firebase.storage().ref();
+
+    storageRef.child(`${CONSTANTS.BASE_DATABASE}/${this.userService.currentUser.email}`).put(file);
+
+    this.uploadTask = storageRef
+      .child(`${CONSTANTS.BASE_DATABASE}/${this.userService.currentUser.email}`)
+      .put(file);
+
+    this._loading = true;
+    this.uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
+        this._uploadProgress = (snapshot.bytesTransferred / snapshot.bytesTransferred) * 100;
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+      });
+
+    return this.uploadTask.snapshot.ref.getDownloadURL()
+      .then((url) => {
+        this._loading = false;
+        return url;
+      });
+  }
+
+  get uploadProgress(): number {
+    return this._uploadProgress;
+  }
+
+  get loading(): boolean {
+    return this._loading;
   }
 }

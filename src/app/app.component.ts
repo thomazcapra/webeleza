@@ -1,6 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
-import { ApiService, ICardInfo } from './shared/core/services/api/api.service';
 import { UserService } from './shared/core/services/user/user.service';
+import { ICardInfo } from '@webeleza/models';
+import { ApiService } from '@webeleza/services';
 
 @Component({
   selector: 'app-root',
@@ -34,6 +35,6 @@ export class AppComponent {
   }
 
   loading(): boolean {
-    return this.userService.loading;
+    return this.userService.loading || this.apiService.loading;
   }
 }

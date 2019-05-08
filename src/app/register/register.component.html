@@ -6,11 +6,17 @@
       <div class="row form-group">
         <label> Nome do Cliente </label>
         <input type="text"
-               formControlName="name"
+               formControlName="clientName"
                class="form-control">
       </div>
       <div class="row form-group">
-        <label>Email</label>
+          <label>Nome</label>
+          <input type="text"
+                 formControlName="name"
+                 class="form-control">
+        </div>
+      <div class="row form-group">
+        <label>E-mail</label>
         <input type="text"
                formControlName="email"
                class="form-control">
@@ -23,31 +29,39 @@
                </textarea>
       </div>
       <div class="row form-group">
+        <label>Endereço</label>
+        <textarea type="text"
+                  formControlName="address"
+                  class="form-control">
+               </textarea>
+      </div>
+      <div class="row form-group">
         <label>Telefone</label>
         <input type="text"
                formControlName="phone"
                class="form-control">
       </div>
+
       <div class="form-group">
-        <label class="row">Data de Nascimento</label>
-        <div class="flex-nowrap row">
-          <input class="form-control"
-                 [matDatepicker]="dp3"
-                 formControlName="birthDate">
-          <div class="input-group-append">
-            <mat-datepicker-toggle matSuffix
-                                   [for]="dp3"></mat-datepicker-toggle>
-            <mat-datepicker #dp3
-                            disabled="false"></mat-datepicker>
-          </div>
-        </div>
+        <button mat-raised-button
+                class="register-image-button"
+                color="primary">
+          <label for="filePicker">Alterar Imagem</label>
+        </button>
+        <input type="file"
+               [style.display]="'none'"
+               (change)="onFileChange($event)"
+               class="form-control-file"
+               id="filePicker">
+        <img class="register-image-preview"
+             [src]="mainPhotoUrl" />
       </div>
     </form>
 
     <div class="button-area"
          (click)="closeRegisterDialog()">
       <button mat-raised-button>
-        Sair
+        Fechar
       </button>
       <button mat-raised-button
               color="primary"

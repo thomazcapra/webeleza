@@ -17,6 +17,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@webeleza/models": ["./src/app/shared/core/models"],
+      "@webeleza/services": ["./src/app/shared/core/services"],
+      "@webeleza/constants": ["./src/app/shared/core/constants"],
+    }
   }
 }
