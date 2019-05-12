@@ -1,5 +1,9 @@
 <ng-template #registerDialog>
-  <div class="register-dialog">
+  <mat-progress-bar *ngIf="loadingImage"
+                    mode="indeterminate">
+  </mat-progress-bar>
+  <div class="register-dialog"
+       [class.loading]="loadingImage">
     <form *ngIf="form"
           class="input-group"
           [formGroup]="form">

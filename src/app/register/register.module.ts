@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './register.component';
-import { Routes, RouterModule } from '@angular/router';
-import { MatDialogModule, MatButtonModule, MatDatepickerModule, MatFormFieldModule } from '@angular/material';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatDatepickerModule, MatDialogModule, MatFormFieldModule, MatProgressBarModule } from '@angular/material';
+import { RouterModule, Routes } from '@angular/router';
+import { RegisterComponent } from './register.component';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
   }
 ];
 
-const MATERIAL_MODULES = [MatDialogModule, MatButtonModule, MatDatepickerModule, MatFormFieldModule];
+const MATERIAL_MODULES = [MatDialogModule, MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatProgressBarModule];
 
 @NgModule({
   imports: [

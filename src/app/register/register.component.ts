@@ -23,6 +23,7 @@ export class RegisterComponent implements AfterViewInit, OnInit {
   private _dialogRef: MatDialogRef<any, any>;
   private _file: File;
   public mainPhotoUrl: string;
+  public loadingImage: boolean;
 
   form: FormGroup;
 
@@ -124,6 +125,7 @@ export class RegisterComponent implements AfterViewInit, OnInit {
 
   onFileChange(event: any) {
     const reader = new FileReader();
+    this.loadingImage = true;
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
@@ -133,6 +135,7 @@ export class RegisterComponent implements AfterViewInit, OnInit {
       reader.onloadend = () => {
         this.form.markAsDirty();
         this.mainPhotoUrl = reader.result as string;
+        this.loadingImage = false;
       };
     }
   }

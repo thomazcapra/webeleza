@@ -8,6 +8,11 @@
 
   overflow-y: scroll;
 
+  &.loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -28,7 +33,7 @@
     .register-image-preview {
       max-width: 100%;
       border-radius: 4px;
-    };
+    }
   }
 
   &__line {
