@@ -447,12 +447,12 @@ Apache-2.0
 
 @angular/material/button
 
+@angular/material/progress-bar
+
 @angular/router
 MIT
 
 @angular/material/snack-bar
-
-@angular/material/progress-bar
 
 @angular/material/menu
 
