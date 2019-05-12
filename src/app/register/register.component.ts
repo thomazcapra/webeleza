@@ -1,11 +1,11 @@
-import { Component, AfterViewInit, ViewChild, TemplateRef, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from '@angular/material';
-import { Router } from '@angular/router';
-import { UserService } from '../shared/core/services/user/user.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { DateAdapter, MatDialog, MatDialogRef, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { NotificationService, ApiService } from '@webeleza/services';
+import { Router } from '@angular/router';
 import { ICardInfo } from '@webeleza/models';
+import { ApiService, NotificationService } from '@webeleza/services';
+import { UserService } from '../shared/core/services/user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +21,7 @@ export class RegisterComponent implements AfterViewInit, OnInit {
   @ViewChild('registerDialog')
   public registerDialog: TemplateRef<any>;
   private _dialogRef: MatDialogRef<any, any>;
+  private _file: File;
   public mainPhotoUrl: string;
 
   form: FormGroup;
@@ -48,7 +49,6 @@ export class RegisterComponent implements AfterViewInit, OnInit {
         description: new FormControl(),
         email: new FormControl(),
         name: new FormControl(),
-        mainPhotoUrl: new FormControl(),
         numLikes: new FormControl(),
         phone: new FormControl(),
       }
@@ -56,7 +56,12 @@ export class RegisterComponent implements AfterViewInit, OnInit {
 
     if (card) {
       this.mainPhotoUrl = card.mainPhotoUrl;
-      this.form.patchValue(card);
+      this.form.patchValue({
+        ...card,
+        name: this.userService.authState.displayName,
+        email: this.userService.authState.email,
+        avatarUrl: this.userService.authState.photoURL
+      });
       const controls = this.form.controls;
       controls.email.disable();
       controls.name.disable();
@@ -106,15 +111,14 @@ export class RegisterComponent implements AfterViewInit, OnInit {
     return this.userService.authenticated;
   }
 
-  onSaveData(): void {
+  async onSaveData(): Promise<void> {
     if (this.form.dirty) {
       const payload = {
         ...this.form.getRawValue(),
         name: this.userService.authState.displayName,
-        mainPhotoUrl: this.mainPhotoUrl,
         avatarUrl: this.userService.authState.photoURL
       };
-      this.apiService.updateData(payload);
+      this.apiService.updateData(payload, this._file);
     }
   }
 
@@ -123,18 +127,13 @@ export class RegisterComponent implements AfterViewInit, OnInit {
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+      this._file = file;
       reader.readAsDataURL(file);
 
-      this.apiService.uploadImage(file)
-        .then((url) => {
-          this.mainPhotoUrl = url;
-          this.form.markAsDirty();
-          // console.log('uploaded', url);
-          this.onSaveData();
-          this.notificationService.showSucess('Imagem alterada com sucesso!');
-        }).catch((error) => {
-          this.notificationService.showError('Error ao fazer upload');
-        });
+      reader.onloadend = () => {
+        this.form.markAsDirty();
+        this.mainPhotoUrl = reader.result as string;
+      };
     }
   }
 }

@@ -10,9 +10,7 @@ import { ApiService } from '@webeleza/services';
 })
 export class AppComponent {
   searchedValue: string;
-  get data(): ICardInfo[] {
-    return this.apiService.items;
-  }
+  data$ = this.apiService.cards$();
 
   @HostBinding('class.loading') get loadingClass(): boolean {
     return this.loading();

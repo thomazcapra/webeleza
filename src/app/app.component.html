@@ -43,7 +43,7 @@
 </h5>
 
 <div class="card-area">
-  <app-card *ngFor="let item of data"
+  <app-card *ngFor="let item of data$ | async"
             [clientInfo]="item">
   </app-card>
 </div>

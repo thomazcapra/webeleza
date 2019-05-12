@@ -10,11 +10,11 @@
                class="form-control">
       </div>
       <div class="row form-group">
-          <label>Nome</label>
-          <input type="text"
-                 formControlName="name"
-                 class="form-control">
-        </div>
+        <label>Nome</label>
+        <input type="text"
+               formControlName="name"
+               class="form-control">
+      </div>
       <div class="row form-group">
         <label>E-mail</label>
         <input type="text"
@@ -54,6 +54,7 @@
                class="form-control-file"
                id="filePicker">
         <img class="register-image-preview"
+             onError="this.src='assets/images/no-image.svg';"
              [src]="mainPhotoUrl" />
       </div>
     </form>
