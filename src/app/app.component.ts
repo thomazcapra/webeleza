@@ -10,7 +10,23 @@ import { ApiService } from '@webeleza/services';
 })
 export class AppComponent {
   searchedValue: string;
-  data$ = this.apiService.cards$();
+
+  get filteredCards(): ICardInfo[] {
+    if (!this.searchedValue) {
+      return this.data;
+    }
+
+    const search = this.searchedValue.toLowerCase();
+
+    return this.data && this.data.filter(({ clientName, description }) => {
+      return clientName && clientName.toLowerCase().includes(this.searchedValue)
+        || description && description.toLowerCase().includes(this.searchedValue);
+    });
+  }
+
+  private get data() {
+    return this.apiService.cards;
+  }
 
   @HostBinding('class.loading') get loadingClass(): boolean {
     return this.loading();

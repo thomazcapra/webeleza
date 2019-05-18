@@ -3,17 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { CONSTANTS } from '@webeleza/constants';
 import { ICardInfo } from '@webeleza/models';
 import * as firebase from 'firebase/app';
-import 'firebase/storage'; // <----
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { NotificationService } from '../notification/notification.service';
 import { UserService } from '../user/user.service';
-
-
-export interface IGeoPoint {
-  latitude: number;
-  longitude: number;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -22,18 +13,20 @@ export class ApiService {
   private _uploadTask: firebase.storage.UploadTask;
   private _uploadProgress = 0;
   private _loading: boolean;
+  public cards: ICardInfo[];
 
   constructor(public db: AngularFirestore,
     private notificationService: NotificationService,
     private userService: UserService) {
+    this.getCards();
   }
 
-  public cards$(): Observable<ICardInfo[]> {
-    return this.db.collection(CONSTANTS.COLLECTION)
+  public getCards(): void {
+    this.db.collection(CONSTANTS.COLLECTION)
       .valueChanges()
-      .pipe(
-        map((data) => <ICardInfo[]>data)
-      );
+      .subscribe((data: ICardInfo[]) => {
+        this.cards = data;
+      });
   }
 
   updateData(payload: ICardInfo, newImage?: File): void {
@@ -60,7 +53,7 @@ export class ApiService {
           .set(payload)
           .then(() => {
             this._loading = false;
-            this.notificationService.showSucess('Dados Atualizados com Sucesso!');
+            this.notificationService.showSucess('Dados Criados com Sucesso!');
           }).catch((e) => {
             this.notificationService.showError('Erro ao atualizar informações');
           });
