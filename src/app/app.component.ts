@@ -19,8 +19,8 @@ export class AppComponent {
     const search = this.searchedValue.toLowerCase();
 
     return this.data && this.data.filter(({ clientName, description }) => {
-      return clientName && clientName.toLowerCase().includes(this.searchedValue)
-        || description && description.toLowerCase().includes(this.searchedValue);
+      return clientName && clientName.toLowerCase().includes(search)
+        || description && description.toLowerCase().includes(search);
     });
   }
 
