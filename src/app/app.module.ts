@@ -24,6 +24,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { firebaseConfig } from 'src/environments/environment.prod';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MainComponent } from './main/main.component';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -41,7 +42,8 @@ const MATERIAL_MODULES = [
 @NgModule({
   declarations: [
     AppComponent,
-    CardComponent
+    CardComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

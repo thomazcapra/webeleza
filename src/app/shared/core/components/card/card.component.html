@@ -1,21 +1,17 @@
 <mat-card class="example-card">
-  <mat-card-header>
-    <img mat-card-avatar
-         [src]="clientInfo?.avatarUrl || 'assets/images/avatar.png'"
-         class="example-header-image">
-    <mat-card-title> {{ clientInfo.clientName }} </mat-card-title>
-    <mat-card-subtitle> {{ clientInfo.phone }} </mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image
-       [src]="clientInfo?.mainPhotoUrl || 'assets/images/example.jpg'"
-       alt="Photo of a Shiba Inu">
-  <mat-card-content>
-    <p>
-      {{ clientInfo.description }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
+    <mat-card-header>
+        <img mat-card-avatar [src]="clientInfo?.avatarUrl || 'assets/images/avatar.png'" class="example-header-image">
+        <mat-card-title> {{ clientInfo.clientName }} </mat-card-title>
+        <mat-card-subtitle> {{ clientInfo.phone }} </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="clientInfo?.mainPhotoUrl || 'assets/images/example.jpg'" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+        <p>
+            {{ clientInfo.description }}
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button (click)="handleShareClick()">SHARE</button>
+    </mat-card-actions>
 </mat-card>

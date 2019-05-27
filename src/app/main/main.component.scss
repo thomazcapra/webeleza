@@ -1,0 +1,52 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    // height: 7rem;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    background-color: #fdfdff;
+    img {
+      height: 1.5rem;
+    }
+  
+    @media screen and (min-width: 500px) {
+      padding: 2rem;
+    }
+  }
+  
+  .card-area {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  footer {
+    background-color: blue;
+  }
+  
+  input {
+    &.form-control {
+      height: 40px;
+    }
+  
+    @media screen and (max-width: 500px) {
+      font-size: 12px;
+    }
+  }
+  
+  ::ng-deep {
+    .btn-outline-secondary.mat-icon-button {
+      .mat-button-ripple {
+        border: 1px solid #ced4da;
+      }
+    }
+  }
+  
+  .input-group.mb-3 {
+    margin: 0 1rem !important;
+  }
+  
+  h5 {
+    padding: 1rem;
+  }
+  
